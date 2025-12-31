@@ -19,21 +19,37 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
+  const whatsappMessage = `
+*New Contact Message*
 
-    toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. We'll get back to you soon.",
-    });
+ Name: ${formData.name}
+ Email: ${formData.email}
 
-    setFormData({ name: "", email: "", message: "" });
+Message:
+${formData.message}
+  `;
+
+  const encodedMessage = encodeURIComponent(whatsappMessage);
+
+  toast({
+    title: "Redirecting to WhatsApp",
+    description: "Please send the message to complete contact.",
+  });
+
+  setTimeout(() => {
+    window.open(
+      `https://wa.me/917888562041?text=${encodedMessage}`,
+      "_blank"
+    );
     setIsSubmitting(false);
-  };
+    setFormData({ name: "", email: "", message: "" });
+  }, 800);
+};
+
 
   return (
     <Layout>

@@ -8,7 +8,8 @@ interface CartModalProps {
 }
 
 const CartModal = ({ onClose }: CartModalProps) => {
-  const { cart, addToCart, decreaseQuantity, removeFromCart } = useCart();
+  const { cart, addToCart, decreaseQuantity, removeFromCart, clearCart } = useCart();
+
   const [closing, setClosing] = useState(false);
 
   const total = cart.reduce(
@@ -22,17 +23,32 @@ const CartModal = ({ onClose }: CartModalProps) => {
   };
 
   const buildWhatsAppMessage = () => {
-  let message = "*New Order from Shivaay Perfumers* \n\n";
+    let message = "*New Order from Shivaay Perfumers* \n\n";
 
-  cart.forEach((item, index) => {
-    message += `${index + 1}. ${item.title}\n`;
-    message += `   • Size: ${item.ml} ml\n`;
-    message += `   • Quantity: ${item.quantity}\n\n`;
-  });
+    cart.forEach((item, index) => {
+      message += `${index + 1}. ${item.title}\n`;
+      message += `   • Size: ${item.ml} ml\n`;
+      message += `   • Quantity: ${item.quantity}\n\n`;
+    });
 
-  message += `—Please confirm availability.`;
+    message += `—Please confirm availability.`;
 
-  return encodeURIComponent(message);
+    return encodeURIComponent(message);
+  };
+
+  const handleCheckout = () => {
+  const url = `https://wa.me/${phoneno}?text=${buildWhatsAppMessage()}`;
+
+  // clear cart first
+  clearCart();
+
+  // close modal smoothly
+  handleClose();
+
+  // redirect after animation
+  setTimeout(() => {
+    window.open(url, "_blank");
+  }, 300);
 };
 
 
@@ -110,14 +126,13 @@ const CartModal = ({ onClose }: CartModalProps) => {
               <span className="font-semibold">₹{total}</span>
             </div>
 
-            <a
-            href={`https://wa.me/${phoneno}?text=${buildWhatsAppMessage()}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block text-center py-3 rounded-full bg-primary text-primary-foreground font-medium hover:opacity-90 transition"
+            <button
+              onClick={handleCheckout}
+              className="block w-full text-center py-3 rounded-full bg-primary text-primary-foreground font-medium hover:opacity-90 transition"
             >
               Checkout on WhatsApp
-            </a>
+            </button>
+
           </div>
         )}
       </div>

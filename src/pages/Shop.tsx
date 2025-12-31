@@ -1,55 +1,71 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
+import Layout from "@/components/layout/Layout";
 import ProductCard from "@/components/ui/ProductCard";
 import products from "@/data/Products";
-import Layout from "@/components/layout/Layout";
 
-const categories = ["attar", "perfume","bottles"];
+const categories = ["attar", "perfume", "bottles"];
 
 const Shop = () => {
   const [activeCategory, setActiveCategory] = useState("attar");
 
-  const filteredProducts = products.filter(
-    p => p.category === activeCategory
+  const filteredProducts = useMemo(
+    () => products.filter(p => p.category === activeCategory),
+    [activeCategory]
   );
 
   return (
     <Layout>
-    <div className="max-w-6xl mx-auto py-20 px-6">
+      <div className="max-w-6xl mx-auto py-24 px-6">
 
-      {/* Category Tabs */}
-      <div className="flex justify-center gap-10 mb-14">
-        {categories.map(cat => (
-          <button
-            key={cat}
-            onClick={() => setActiveCategory(cat)}
-            className={`uppercase tracking-widest border-b-2 pb-2
-              ${activeCategory === cat
-                ? "border-black font-semibold"
-                : "border-transparent text-gray-400"
-              }`}
-          >
-            {cat}
-          </button>
+        {/* Preload first 3 images (LCP boost) */}
+        {filteredProducts.slice(0, 3).map(product => (
+          <link
+            key={product.id}
+            rel="preload"
+            as="image"
+            href={product.image}
+          />
         ))}
-      </div>
 
-      {/* Products */}
-      <div className="grid md:grid-cols-3 gap-8">
-        {filteredProducts.map(product => (
-          <Link key={product.id} to={`/shop/${product.id}`}>
-            <ProductCard
-              image={product.image}
-              name={product.title}
-              description={product.vibe}
-              sizes={product.sizes}
-              category={product.category}
-            />
+        {/* Category Tabs */}
+        <div className="flex justify-center gap-10 mb-16">
+          {categories.map(cat => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`uppercase tracking-widest pb-2 border-b-2 transition-all duration-300
+                ${
+                  activeCategory === cat
+                    ? "border-primary text-foreground font-semibold"
+                    : "border-transparent text-muted-foreground hover:text-foreground"
+                }
+              `}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
 
-          </Link>
-        ))}
+        {/* Products Grid */}
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-10">
+          {filteredProducts.map(product => (
+            <Link
+              key={product.id}
+              to={`/shop/${product.id}`}
+              className="motion-safe:animate-fade-in-up"
+            >
+              <ProductCard
+                image={product.image}
+                name={product.title}
+                description={product.vibe}
+                sizes={product.sizes}
+                category={product.category}
+              />
+            </Link>
+          ))}
+        </div>
       </div>
-    </div>
     </Layout>
   );
 };

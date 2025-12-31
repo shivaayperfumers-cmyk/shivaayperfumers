@@ -21,25 +21,11 @@ const Footer = () => {
         {/* Social Links */}
         <div className="flex justify-center gap-6 mb-8">
           <a
-            href="#"
+            href="https://www.instagram.com/shivaayperfumers/"
             aria-label="Instagram"
             className="text-muted-foreground hover:text-primary transition-colors duration-300"
           >
             <Instagram size={20} />
-          </a>
-          <a
-            href="#"
-            aria-label="Facebook"
-            className="text-muted-foreground hover:text-primary transition-colors duration-300"
-          >
-            <Facebook size={20} />
-          </a>
-          <a
-            href="#"
-            aria-label="Twitter"
-            className="text-muted-foreground hover:text-primary transition-colors duration-300"
-          >
-            <Twitter size={20} />
           </a>
         </div>
 
@@ -57,8 +43,8 @@ const Footer = () => {
         </div>
 
         {/* Copyright */}
-        <p className="text-center font-body text-xs text-muted-foreground tracking-wide">
-          © {new Date().getFullYear()} Shivaay Perfumers. All rights reserved.
+        <p className="text-center font-body text-muted-foreground tracking-wide">
+          © {new Date().getFullYear()} Developed by Walia and Parth. All rights reserved.
         </p>
       </div>
     </footer>
