@@ -141,8 +141,9 @@ const Contact = () => {
                       Visit Us
                     </h3>
                     <p className="font-body text-muted-foreground leading-relaxed">
-                      123 Luxury Lane, Perfume District<br />
-                      Mumbai, Maharashtra 400001<br />
+                      Shop no. 5, Arya nagar,<br />
+                      near telephone Exchange, Hari Nagar, <br/>
+                      Hoshiarpur, Punjab 146001<br />
                       India
                     </p>
                   </div>
@@ -171,7 +172,7 @@ const Contact = () => {
                       Email Us
                     </h3>
                     <p className="font-body text-muted-foreground">
-                      hello@shivaayperfumers.com
+                      shivaayperfumers@gmail.com
                     </p>
                   </div>
                 </div>
@@ -184,17 +185,17 @@ const Contact = () => {
                 </h3>
                 <div className="space-y-2 font-body text-muted-foreground">
                   <div className="flex justify-between">
-                    <span>Monday - Friday</span>
-                    <span className="text-foreground">10:00 AM - 8:00 PM</span>
+                    <span>Everyday</span>
+                    <span className="text-foreground">10:00 AM - 10:00 PM</span>
                   </div>
-                  <div className="flex justify-between">
+                  {/* <div className="flex justify-between">
                     <span>Saturday</span>
                     <span className="text-foreground">11:00 AM - 6:00 PM</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Sunday</span>
                     <span className="text-foreground">Closed</span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
